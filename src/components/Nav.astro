@@ -8,7 +8,7 @@ const links = [
   { href: `${base}/catalogo`, label: 'Catálogo', key: 'catalogo' },
   { href: `${base}/portafolio`, label: 'Portafolio', key: 'portafolio' },
   { href: `${base}/contacto`, label: 'Contacto', key: 'contacto' },
-];
+].filter(link => showPortfolio || link.key !== 'portafolio');
 const waLink = "https://wa.me/50242203700?text=Hola%2C%20quisiera%20cotizar%20un%20r%C3%B3tulo";
 ---
 <header class="nav">
