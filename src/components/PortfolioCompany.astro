@@ -1,0 +1,64 @@
+---
+interface Project {
+  title: string;
+  service: string;
+  description: string;
+  image?: string | null;
+  swatch?: string;
+}
+interface Company {
+  name: string;
+  sector: string;
+  blurb: string;
+  projects: Project[];
+}
+interface Props { company: Company; }
+const { company } = Astro.props;
+---
+<article class="pf-company reveal">
+  <div class="pf-company__head">
+    <h3>{company.name}</h3>
+    <span class="pf-company__sector">{company.sector}</span>
+    <p>{company.blurb}</p>
+  </div>
+  <div class="pf-company__grid">
+    {company.projects.map(p => (
+      <div class="pf-card reg-corners">
+        <div class={`pf-card__media ${!p.image ? `swatch--${p.swatch || 'default'}` : ''}`}>
+          {p.image && <img src={p.image} alt={p.title} loading="lazy" />}
+          {!p.image && <span class="pf-card__placeholder">Foto pendiente</span>}
+        </div>
+        <div class="pf-card__body">
+          <span class="pf-card__tag">{p.service}</span>
+          <h4>{p.title}</h4>
+          <p>{p.description}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</article>
+
+<style>
+  .pf-company{ margin-bottom: clamp(3rem, 6vw, 5rem); }
+  .pf-company__head{ max-width: 60ch; margin-bottom: 1.8rem; }
+  .pf-company__head h3{ font-size: clamp(1.5rem, 3vw, 2rem); }
+  .pf-company__sector{ display:inline-block; font-size:.82rem; color: var(--accent); font-weight:600; margin: .4rem 0 .8rem; }
+  .pf-company__head p{ color: var(--text-muted); font-size: .96rem; }
+  .pf-company__grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+  @media (max-width: 900px){ .pf-company__grid{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 600px){ .pf-company__grid{ grid-template-columns: 1fr; } }
+
+  .pf-card{ background: var(--surface); border:1px solid var(--border); overflow:hidden; display:flex; flex-direction:column; }
+  .pf-card__media{ aspect-ratio: 4/3; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+  .pf-card__media img{ width:100%; height:100%; object-fit:cover; }
+  .pf-card__placeholder{ font-size:.78rem; color: rgba(255,255,255,.75); background: rgba(0,0,0,.25); padding:.3rem .7rem; border-radius:20px; position:relative; z-index:2; }
+  .pf-card__media.swatch--acm{ background: repeating-linear-gradient(100deg, #8d9195 0 3px, #b7bbbe 3px 6px); }
+  .pf-card__media.swatch--vinil{ background: conic-gradient(from 90deg, #FFB020, #2B2B2B, #FFB020 50%, #2B2B2B 75%, #FFB020); }
+  .pf-card__media.swatch--seguridad{ background: repeating-linear-gradient(45deg, #FFB020 0 18px, #17140c 18px 36px); }
+  .pf-card__media.swatch--default{ background: linear-gradient(135deg, var(--panel), var(--surface-2)); }
+
+  .pf-card__body{ padding: 1.1rem 1.2rem 1.4rem; }
+  .pf-card__tag{ font-size:.76rem; color: var(--text-muted); font-weight:600; }
+  .pf-card__body h4{ font-size: 1.05rem; margin: .35rem 0 .4rem; }
+  .pf-card__body p{ font-size:.88rem; color: var(--text-muted); }
+</style>

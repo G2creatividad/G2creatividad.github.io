@@ -1,0 +1,32 @@
+---
+// Fixed full-viewport canvas background. Sits behind all page content
+// (z-index: 0) and lights up a grid near the cursor — brand-colored,
+// subtle, and skipped entirely for prefers-reduced-motion.
+---
+<canvas id="cursor-grid-bg" aria-hidden="true"></canvas>
+
+<style>
+  #cursor-grid-bg{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    display: block;
+  }
+</style>
+
+<script>
+  import { mountCursorGrid } from '../scripts/cursor-grid.js';
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canvas = document.getElementById('cursor-grid-bg');
+
+  function currentAccent() {
+    return getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#FFCC00';
+  }
+
+  if (canvas && !reduceMotion) {
+    const instance = mountCursorGrid(canvas, { color: currentAccent() });
+    window.addEventListener('g2:themechange', () => instance.setColor(currentAccent()));
+  }
+</script>

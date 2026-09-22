@@ -1,0 +1,253 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import acrilicoImg from '../materials/acrilico.png';
+import pvcImg from '../materials/pvc.png';
+import acmImg from '../materials/acm.jpeg';
+import vinilImg from '../materials/vinil.jpeg';
+---
+<BaseLayout title="G2 Creatividad — Rotulación, impresión y sandblast en Guatemala" current="inicio">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="inicio">
+    <div class="hero__panel">
+      <svg viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice">
+        <text x="90" y="520" font-family="Barlow Condensed" font-weight="900" font-size="500" fill="none" stroke="rgba(255,176,32,0.16)" stroke-width="2">G2</text>
+        <text x="90" y="590" font-family="Barlow Condensed" font-weight="900" font-size="80" fill="none" stroke="rgba(255,176,32,0.16)" stroke-width="2" letter-spacing="8">CREATIVIDAD</text>
+        <g stroke="rgba(255,255,255,0.14)" stroke-width="1">
+          <line x1="60" y1="90" x2="60" y2="710"/>
+          <line x1="45" y1="90" x2="75" y2="90"/>
+          <line x1="45" y1="710" x2="75" y2="710"/>
+          <line x1="60" y1="90" x2="560" y2="60"/>
+        </g>
+      </svg>
+    </div>
+    <div class="hero__spotlight" id="heroSpot"></div>
+    <div class="hero__inner">
+      <div class="hero__content">
+        <div class="hero__badge"><b>23</b> años dando forma a marcas en Guatemala</div>
+        <h1 class="hero__title">
+          <span class="line"><span>Tu marca,</span></span>
+          <span class="line"><span>cortada con precisión.</span></span>
+        </h1>
+        <div class="hero__blade"></div>
+        <p class="lede hero__lede">Rótulos en acrílico, PVC y ACM, letras tipo block, vinil de corte, impresión full color, seguridad industrial y sandblast — diseñados, cortados e instalados por un mismo equipo desde 2003.</p>
+        <div class="hero__ctas">
+          <a href="https://wa.me/50242203700?text=Hola%2C%20quisiera%20cotizar%20un%20rótulo" class="btn btn-solid" target="_blank" rel="noopener">Cotiza por WhatsApp</a>
+          <a href="/catalogo" class="btn btn-outline">Ver catálogo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MARQUEE ============ -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>ACRÍLICO <em>/</em> PVC <em>/</em> ACM <em>/</em> LETRAS TIPO BLOCK <em>/</em> VINIL DE CORTE <em>/</em> IMPRESIÓN FULL COLOR <em>/</em> SEGURIDAD INDUSTRIAL <em>/</em> SANDBLAST <em>/</em></span>
+      <span>ACRÍLICO <em>/</em> PVC <em>/</em> ACM <em>/</em> LETRAS TIPO BLOCK <em>/</em> VINIL DE CORTE <em>/</em> IMPRESIÓN FULL COLOR <em>/</em> SEGURIDAD INDUSTRIAL <em>/</em> SANDBLAST <em>/</em></span>
+    </div>
+  </div>
+
+  <!-- ============ STATS ============ -->
+  <section class="stats">
+    <div class="container stats__row">
+      <div class="stats__item">
+        <div class="stats__num" data-count="23">0</div>
+        <div class="stats__label">Años de trayectoria</div>
+      </div>
+      <div class="stats__item">
+        <div class="stats__num" data-count="8">0</div>
+        <div class="stats__label">Líneas de producción</div>
+      </div>
+      <div class="stats__item">
+        <div class="stats__num" data-count="100" data-suffix="%">0%</div>
+        <div class="stats__label">Hecho en Guatemala</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NOSOTROS (fusionado en Inicio) ============ -->
+  <section class="about section-pad" id="nosotros">
+    <div class="container about__grid">
+      <div class="reveal">
+        <div class="eyebrow">Nosotros</div>
+        <h2 class="h-lg">23 años dando forma a ideas.</h2>
+        <p class="lede" style="margin-top:1rem;max-width:52ch;">Desde 2004, G2 Creatividad diseña, corta e imprime rotulación para negocios, industrias e instituciones en Guatemala. Combinamos corte de precisión e impresión de gran formato con acabados hechos a mano, para que cada rótulo salga como se planeó: a la medida y a tiempo.</p>
+        <ul class="about__capabilities">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Diseño y asesoría de materiales según el proyecto</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Corte de precisión en vinil y materiales rígidos</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Impresión de gran formato full color</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg> Instalación en sitio</li>
+        </ul>
+      </div>
+      <div class="about__figure reveal">
+        <svg viewBox="0 0 200 200" fill="none" stroke="rgba(255,176,32,0.5)" stroke-width="1.2">
+          <circle cx="100" cy="100" r="70"/>
+          <line x1="100" y1="10" x2="100" y2="190"/>
+          <line x1="10" y1="100" x2="190" y2="100"/>
+          <line x1="30" y1="100" x2="30" y2="90"/>
+          <line x1="170" y1="100" x2="170" y2="90"/>
+          <line x1="100" y1="30" x2="90" y2="30"/>
+          <line x1="100" y1="170" x2="90" y2="170"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MATERIALS ============ -->
+  <section class="materials section-pad">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Materiales</div>
+        <h2 class="h-md">Cada superficie pide un material distinto.</h2>
+      </div>
+      <div class="materials__grid reveal">
+        <div class="swatch swatch--acrilico">
+          <img src={acrilicoImg.src} alt="Acrílico" loading="lazy" />
+          <span>Acrílico</span>
+        </div>
+        <div class="swatch swatch--pvc">
+          <img src={pvcImg.src} alt="PVC" loading="lazy" />
+          <span>PVC</span>
+        </div>
+        <div class="swatch swatch--acm">
+          <img src={acmImg.src} alt="ACM" loading="lazy" />
+          <span>ACM</span>
+        </div>
+        <div class="swatch swatch--vinil">
+          <img src={vinilImg.src} alt="Vinil" loading="lazy" />
+          <span>Vinil</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CATÁLOGO TEASER ============ -->
+  <section class="section-pad cat-teaser">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Catálogo</div>
+        <h2 class="h-lg">Ocho especialidades, un solo taller.</h2>
+        <p class="lede" style="margin-top:.8rem;">Desde una vitrina hasta la fachada completa de una planta industrial.</p>
+      </div>
+      <a href="/catalogo" class="btn btn-solid reveal">Ver el catálogo completo</a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ---------------- HERO ---------------- */
+  .hero{ position:relative; overflow:hidden; min-height: 100svh; display:flex; align-items:center; padding-top: 88px; background: var(--bg); }
+  .hero__panel{ position:absolute; top:0; right:0; bottom:0; width:52%; background: var(--panel); clip-path: polygon(22% 0, 100% 0, 100% 100%, 0% 100%); overflow:hidden; }
+  .hero__panel svg{ position:absolute; inset:0; width:100%; height:100%; }
+  .hero__spotlight{ position:absolute; inset:0; pointer-events:none; z-index:1; background: radial-gradient(420px circle at var(--x,50%) var(--y,50%), rgba(255,176,32,.12), transparent 60%); }
+  .hero__inner{ position:relative; z-index:2; max-width: var(--container); margin:0 auto; width:100%; padding: 0 var(--gutter); display:grid; grid-template-columns: minmax(0,640px) 1fr; gap:2rem; }
+  .hero__content{ padding: 3rem 0 4rem; }
+  .hero__badge{ display:inline-flex; align-items:center; gap:.6rem; border:1px solid var(--border-strong); border-radius:30px; padding:.4rem .9rem .4rem .5rem; margin-bottom:1.6rem; font-size:.85rem; font-weight:600; color:var(--text-muted); }
+  .hero__badge b{ color:var(--accent); font-family:var(--font-display); font-size:1rem; }
+  .hero__title{ font-size: clamp(2.7rem, 6.4vw, 5rem); line-height:.96; overflow:hidden; }
+  .hero__title .line{ display:block; overflow:hidden; }
+  .hero__title .line span{ display:block; transform: translateY(105%); animation: riseLine .85s var(--ease) forwards; }
+  .hero__title .line:nth-child(1) span{ animation-delay:.15s; }
+  .hero__title .line:nth-child(2) span{ animation-delay:.32s; color:var(--accent); }
+  @keyframes riseLine{ to{ transform: translateY(0); } }
+  .hero__blade{ position:relative; height:4px; width:0; background:var(--accent); margin:1.6rem 0 1.7rem; animation: growBlade .9s var(--ease) forwards; animation-delay:.75s; }
+  @keyframes growBlade{ to{ width:120px; } }
+  .hero__lede{ opacity:0; animation: fadeUp .7s var(--ease) forwards; animation-delay:1s; }
+  .hero__ctas{ display:flex; flex-wrap:wrap; gap:1rem; margin-top:2.2rem; opacity:0; animation: fadeUp .7s var(--ease) forwards; animation-delay:1.15s; }
+  @keyframes fadeUp{ from{ opacity:0; transform:translateY(14px);} to{ opacity:1; transform:translateY(0);} }
+  @media (prefers-reduced-motion: reduce){
+    .hero__title .line span{ animation:none; transform:none; }
+    .hero__blade{ animation:none; width:120px; }
+    .hero__lede,.hero__ctas{ animation:none; opacity:1; }
+  }
+  @media (max-width: 900px){
+    .hero__inner{ grid-template-columns: 1fr; }
+    .hero__panel{ width:100%; height:32%; top:auto; bottom:0; clip-path: polygon(0 28%, 100% 0, 100% 100%, 0 100%); }
+    .hero{ min-height: auto; padding-bottom: 3rem;}
+    .hero__content{ padding-bottom: 1rem; }
+  }
+
+  /* ---------------- MARQUEE ---------------- */
+  .marquee{ position:relative; z-index:1; border-top:1px solid var(--border); border-bottom:1px solid var(--border); background: var(--surface); overflow:hidden; white-space:nowrap; }
+  .marquee__track{ display:inline-flex; animation: scrollX 32s linear infinite; padding: 1.1rem 0; }
+  .marquee:hover .marquee__track{ animation-play-state: paused; }
+  .marquee__track span{ font-family: var(--font-display); font-weight:700; font-size:1.05rem; letter-spacing:.5px; color: var(--text-muted); padding: 0 1.4rem; display:inline-flex; align-items:center; gap:1.4rem; }
+  .marquee__track span em{ color:var(--accent); font-style:normal; }
+  @keyframes scrollX{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+  @media (prefers-reduced-motion: reduce){ .marquee__track{ animation:none; } }
+
+  /* ---------------- STATS ---------------- */
+  .stats{ position:relative; z-index:1; background: var(--bg); }
+  .stats__row{ display:grid; grid-template-columns: repeat(3,1fr); }
+  .stats__item{ padding: 3rem 1.5rem; text-align:center; position:relative; }
+  .stats__item + .stats__item::before{ content:""; position:absolute; left:0; top:20%; bottom:20%; width:1px; background: var(--border-strong); transform: skewX(-12deg); }
+  .stats__num{ font-family:var(--font-display); font-size:clamp(2.6rem,5vw,3.6rem); color:var(--accent); font-weight:800; }
+  .stats__label{ color: var(--text-muted); font-size:.95rem; margin-top:.3rem; }
+  @media (max-width:700px){ .stats__row{ grid-template-columns:1fr; } .stats__item+.stats__item::before{ display:none; } .stats__item{ border-top:1px solid var(--border); } .stats__item:first-child{ border-top:none; } }
+
+  /* ---------------- ABOUT ---------------- */
+  .about{ position:relative; z-index:1; background: var(--bg); }
+  .about__grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items:center; }
+  .about__figure{ position:relative; aspect-ratio: 4/5; background: var(--panel); clip-path: polygon(0 0, 100% 8%, 100% 100%, 0 92%); display:flex; align-items:center; justify-content:center; }
+  .about__figure svg{ width:70%; height:70%; }
+  .about__capabilities{ margin-top:1.8rem; display:grid; gap: .9rem; }
+  .about__capabilities li{ display:flex; gap:.8rem; align-items:flex-start; color:var(--text-muted); font-size:.96rem; }
+  .about__capabilities svg{ flex:none; width:18px; height:18px; margin-top:.15rem; color:var(--accent); }
+  @media (max-width:900px){ .about__grid{ grid-template-columns:1fr; gap:2.5rem; } .about__figure{ order:-1; max-width:340px; margin:0 auto; } }
+
+  /* ---------------- MATERIALS ---------------- */
+  .materials{ position:relative; z-index:1; background: var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .materials__grid{ display:grid; grid-template-columns: repeat(4,1fr); gap: 1.4rem; }
+  .swatch{ border:1px solid var(--border); border-radius: var(--radius-sm); padding: 1.4rem; height:150px; position:relative; overflow:hidden; display:flex; align-items:flex-end; }
+  .swatch img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+  .swatch span{ font-family:var(--font-display); font-weight:700; font-size:1.15rem; color:#fff; position:relative; z-index:2; text-shadow: 0 2px 10px rgba(0,0,0,.4); }
+  .swatch::before{ content:""; position:absolute; inset:0; z-index:1; background: linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.45)); }
+  .swatch--pvc span{ color:#fff; }
+  @media (max-width:900px){ .materials__grid{ grid-template-columns: repeat(2,1fr);} }
+  @media (max-width:520px){ .materials__grid{ grid-template-columns: 1fr; } }
+
+  /* ---------------- CAT TEASER ---------------- */
+  .cat-teaser{ position:relative; z-index:1; }
+</style>
+
+<script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  const hero = document.getElementById('inicio');
+  const spot = document.getElementById('heroSpot');
+  if (fine && !reduceMotion && hero && spot) {
+    hero.addEventListener('mousemove', (e) => {
+      const r = hero.getBoundingClientRect();
+      spot.style.setProperty('--x', (e.clientX - r.left) + 'px');
+      spot.style.setProperty('--y', (e.clientY - r.top) + 'px');
+    });
+  }
+
+  const nums = document.querySelectorAll('.stats__num');
+  let counted = false;
+  function countUp(el: Element) {
+    const target = parseInt(el.getAttribute('data-count') || '0', 10);
+    const suffix = el.getAttribute('data-suffix') || '';
+    if (reduceMotion) { el.textContent = target + suffix; return; }
+    let start: number | null = null;
+    const duration = 1200;
+    function step(ts: number) {
+      if (!start) start = ts;
+      const p = Math.min((ts - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(eased * target) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if (nums.length) {
+    const statsIo = new IntersectionObserver((entries) => {
+      if (counted) return;
+      entries.forEach((en) => { if (en.isIntersecting) { counted = true; nums.forEach(countUp); } });
+    }, { threshold: 0.4 });
+    const statsSection = nums[0].closest('.stats');
+    if (statsSection) statsIo.observe(statsSection);
+  }
+</script>

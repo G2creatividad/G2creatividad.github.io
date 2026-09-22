@@ -1,0 +1,68 @@
+---
+const year = new Date().getFullYear();
+const showPortfolio = false;
+---
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__logo">
+        <img src="/logo-dark.png" alt="G2 Creatividad">
+        <p>Rotulación, impresión y sandblast en Guatemala — 23 años de trayectoria.</p>
+      </div>
+      <div class="footer__cols">
+        <div class="footer__col">
+          <h4>Navegación</h4>
+          <a href="/catalogo">Catálogo</a>
+          {showPortfolio && <a href="/portafolio">Portafolio</a>}
+          <a href="/contacto">Contacto</a>
+        </div>
+        <div class="footer__col">
+          <h4>Contacto</h4>
+          <a href="tel:+50242203700">4220-3700</a>
+          <a href="mailto:g2creatividad@gmail.com">g2creatividad@gmail.com</a>
+          <a href="https://www.facebook.com/g2creatividadguatemala/?locale=es_LA" target="_blank" rel="noopener">Facebook</a>
+        </div>
+        <div class="footer__col">
+          <h4>Ubicación</h4>
+          <p>28 calle 0-47 zona 12,<br>La Reformita, Guatemala</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© {year} G2 Creatividad. Todos los derechos reservados.</span>
+      <span>Diseño y rotulación hechos en Guatemala.</span>
+    </div>
+  </div>
+</footer>
+
+<a class="fab-wa" href="https://wa.me/50242203700?text=Hola%2C%20quisiera%20m%C3%A1s%20informaci%C3%B3n" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.66 15L2 22l5.14-1.32A10 10 0 1 0 12 2zm5.6 14.3c-.24.66-1.38 1.26-1.9 1.33-.5.07-1.03.1-3.3-.7-2.78-1.02-4.57-3.86-4.7-4.04-.14-.18-1.12-1.5-1.12-2.85s.7-2.02.95-2.3c.24-.27.53-.34.7-.34h.5c.16 0 .38-.06.6.44.24.55.8 1.9.86 2.04.07.14.11.3.02.48-.09.18-.14.3-.28.45-.14.16-.29.36-.42.48-.14.13-.28.28-.12.55.16.27.7 1.16 1.52 1.88 1.05.94 1.93 1.23 2.2 1.37.27.14.43.12.6-.07.16-.2.68-.79.87-1.06.18-.27.36-.22.6-.13.24.09 1.55.73 1.82.86.27.14.44.2.5.32.07.11.07.66-.17 1.3z"/></svg>
+</a>
+
+<style>
+  .footer{ background: var(--panel); color: var(--panel-text); padding: 3rem 0 2rem; position:relative; z-index:1; }
+  .footer__top{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:2rem; padding-bottom:2rem; border-bottom:1px solid rgba(255,255,255,.12); }
+  .footer__logo img{ height:40px; margin-bottom:.9rem; }
+  .footer__logo p{ max-width:26ch; color: rgba(255,255,255,.6); font-size:.92rem; }
+  .footer__cols{ display:flex; gap:3.5rem; flex-wrap:wrap; }
+  .footer__col h4{ font-family:var(--font-body); font-size:.85rem; color:#fff; margin-bottom:.9rem; font-weight:600; }
+  .footer__col a, .footer__col p{ color: rgba(255,255,255,.6); font-size:.92rem; display:block; margin-bottom:.55rem; transition:color .2s; }
+  .footer__col a:hover{ color: var(--accent); }
+  .footer__bottom{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:.6rem; padding-top:1.6rem; font-size:.85rem; color:rgba(255,255,255,.45); }
+
+  .fab-wa{
+    position:fixed; right:1.4rem; bottom:1.4rem; z-index:90;
+    width:58px; height:58px; border-radius:50%;
+    background: var(--accent); color: var(--accent-contrast);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: var(--shadow);
+  }
+  .fab-wa svg{ width:26px; height:26px; }
+  .fab-wa::before{
+    content:""; position:absolute; inset:-6px; border-radius:50%;
+    border: 2px solid var(--accent); opacity:.5;
+    animation: pulseRing 2.2s ease-out infinite;
+  }
+  @keyframes pulseRing{ 0%{ transform:scale(.85); opacity:.55;} 100%{ transform:scale(1.35); opacity:0; } }
+  @media (prefers-reduced-motion: reduce){ .fab-wa::before{ animation:none; display:none; } }
+</style>

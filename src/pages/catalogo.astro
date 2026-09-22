@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const services = [
+  {
+    title: 'Rótulos en acrílico',
+    desc: 'Paneles pintados o translúcidos de alto brillo fabricados con corte laser, ideales para señalización interior y letreros iluminados que destacan de día y de noche.',
+    query: 'un rótulo en acrílico',
+    icon: `<rect x="9" y="7" width="27" height="34" rx="1"/><line x1="15" y1="7" x2="9" y2="15"/><line x1="24" y1="7" x2="15" y2="17"/><circle cx="29" cy="27" r="2.4"/>`
+  },
+  {
+    title: 'Rótulos en PVC',
+    desc: 'Ligero, resistente a la intemperie y económico: perfecto para rotulación exterior de alto impacto visual.',
+    query: 'un rótulo en PVC',
+    icon: `<path d="M8 15 L24 7 L40 15 L40 33 L24 41 L8 33 Z"/><path d="M8 15 L24 23 L40 15"/><line x1="24" y1="23" x2="24" y2="41"/>`
+  },
+  {
+    title: 'Rótulos en ACM',
+    desc: 'Paneles de aluminio compuesto, rígidos y de acabado metálico, para fachadas y letreros corporativos de larga duración.',
+    query: 'un rótulo en ACM',
+    icon: `<rect x="8" y="10" width="32" height="28" rx="1"/><line x1="8" y1="19" x2="40" y2="19"/><line x1="8" y1="29" x2="40" y2="29"/>`
+  },
+  {
+    title: 'Letras tipo block',
+    desc: 'Letras corpóreas con volumen real, para una identidad de marca que se nota de día, de noche y desde lejos.',
+    query: 'letras tipo block',
+    icon: `<path d="M14 8 V38 H30"/><path d="M17 13 V43 H35"/><line x1="12" y1="8" x2="17" y2="13"/><line x1="12" y1="38" x2="17" y2="43"/><line x1="30" y1="38" x2="35" y2="43"/>`
+  },
+  {
+    title: 'Vinil de corte electrónico',
+    desc: 'Rotulación vehicular, vitrinas y gráficos de precisión, cortados a la medida exacta de tu diseño.',
+    query: 'vinil de corte',
+    icon: `<path d="M6 36 C16 36 16 12 26 12 C33 12 33 22 41 22"/><path d="M41 22 L35 19 M41 22 L38 28"/>`
+  },
+  {
+    title: 'Impresión full color',
+    desc: 'Gran formato de alta resolución para banners, lonas, vinil impreso y gráficos publicitarios con color fiel.',
+    query: 'impresión full color',
+    icon: `<rect x="10" y="16" width="28" height="14" rx="1"/><rect x="15" y="6" width="18" height="10"/><rect x="13" y="30" width="22" height="12"/><circle cx="18" cy="36" r="1.3" fill="currentColor" stroke="none"/><circle cx="24" cy="36" r="1.3" fill="currentColor" stroke="none"/><circle cx="30" cy="36" r="1.3" fill="currentColor" stroke="none"/>`
+  },
+  {
+    title: 'Seguridad industrial',
+    desc: 'Señalización normada para plantas, bodegas y obra: rótulos de riesgo, rutas de evacuación y señalización de seguridad.',
+    query: 'señalización de seguridad industrial',
+    icon: `<path d="M24 6 L44 40 H4 Z"/><line x1="24" y1="18" x2="24" y2="28"/><circle cx="24" cy="33" r="1.3" fill="currentColor" stroke="none"/>`
+  },
+  {
+    title: 'Sandblast',
+    desc: 'Grabado con acabado esmerilado en vidrio, madera y piedra — ideal para placas y detalles arquitectónicos.',
+    query: 'sandblast',
+    icon: `<line x1="36" y1="6" x2="36" y2="42"/><line x1="32" y1="12" x2="40" y2="12"/><line x1="32" y1="20" x2="40" y2="20"/><line x1="32" y1="28" x2="40" y2="28"/><path d="M6 24 H16 L22 18"/><circle cx="20" cy="26" r="1" fill="currentColor" stroke="none"/><circle cx="24" cy="22" r="1" fill="currentColor" stroke="none"/><circle cx="26" cy="28" r="1" fill="currentColor" stroke="none"/>`
+  }
+];
+
+const waBase = "https://wa.me/50242203700?text=Hola%2C%20quisiera%20cotizar%20";
+---
+<BaseLayout title="Catálogo — G2 Creatividad" current="catalogo">
+
+  <section class="section-pad" style="padding-top: calc(88px + clamp(3rem,6vw,5rem));">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Catálogo</div>
+        <h2 class="h-lg">Ocho especialidades, un solo taller.</h2>
+        <p class="lede" style="margin-top:.8rem;">Desde una vitrina hasta la fachada completa de una planta industrial: elegimos el material y el proceso que mejor le conviene a tu proyecto. Cada tarjeta abre WhatsApp con el mensaje ya listo para ese servicio.</p>
+      </div>
+
+      <div class="catalog__grid reveal">
+        {services.map(s => (
+          <article class="spec-card reg-corners">
+            <div class="spec-icon" set:html={`<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${s.icon}</svg>`} />
+            <h3>{s.title}</h3>
+            <p>{s.desc}</p>
+            <a class="btn btn-ghost" href={`${waBase}${encodeURIComponent(s.query)}`} target="_blank" rel="noopener">Cotizar este servicio</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .catalog__grid{ position:relative; z-index:1; display:grid; grid-template-columns: repeat(4, 1fr); gap:1px; background: var(--border); border:1px solid var(--border); }
+  .spec-card{ background: var(--surface); padding: 2.1rem 1.7rem; display:flex; flex-direction:column; gap:1rem; transition: transform .1s linear, background .3s var(--ease); transform-style: preserve-3d; will-change: transform; }
+  .spec-card:hover{ background: var(--surface-2); }
+  .spec-icon{ width:46px; height:46px; color: var(--accent); }
+  .spec-icon svg{ width:100%; height:100%; }
+  .spec-card h3{ font-size:1.3rem; font-weight:700; }
+  .spec-card p{ color:var(--text-muted); font-size:.94rem; }
+  .spec-card .btn-ghost{ margin-top:auto; font-size:.88rem; }
+  @media (max-width:1100px){ .catalog__grid{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width:560px){ .catalog__grid{ grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (fine && !reduceMotion) {
+    document.querySelectorAll('.spec-card').forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = `perspective(700px) rotateX(${py * -6}deg) rotateY(${px * 8}deg) translateY(-2px)`;
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform = 'perspective(700px) rotateX(0) rotateY(0)'; });
+    });
+  }
+</script>

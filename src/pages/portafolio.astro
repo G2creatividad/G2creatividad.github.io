@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PortfolioCompany from '../components/PortfolioCompany.astro';
+import { companies } from '../data/portfolio.js';
+---
+<BaseLayout title="Portafolio — G2 Creatividad" current="portafolio">
+
+  <section class="section-pad" style="padding-top: calc(88px + clamp(3rem,6vw,5rem));">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Portafolio</div>
+        <h2 class="h-lg">Trabajos por empresa.</h2>
+        <p class="lede" style="margin-top:.8rem;">Un vistazo a proyectos reales, organizados por cliente. La empresa de abajo es un ejemplo de plantilla — así se verá cada cliente real una vez agregado.</p>
+      </div>
+
+      {companies.map(company => (
+        <PortfolioCompany company={company} />
+      ))}
+    </div>
+  </section>
+
+</BaseLayout>

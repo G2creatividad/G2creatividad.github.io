@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const LAT = 14.596641787110398;
+const LNG = -90.55404087194962;
+const mapSrc = `https://www.google.com/maps?q=${LAT},${LNG}&output=embed`;
+---
+<BaseLayout title="Contacto — G2 Creatividad" current="contacto">
+
+  <section class="contact section-pad" style="padding-top: calc(88px + clamp(3rem,6vw,5rem));">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="eyebrow">Contacto</div>
+        <h2 class="h-lg">Hablemos de tu proyecto.</h2>
+        <p class="lede" style="margin-top:.8rem;">Escríbenos por WhatsApp, visítanos en zona 12 o encuéntranos en redes.</p>
+      </div>
+
+      <div class="contact__grid">
+        <div class="reveal">
+          <div class="contact__list">
+
+            <a class="contact__row" href="https://wa.me/50242203700?text=Hola%2C%20quisiera%20m%C3%A1s%20informaci%C3%B3n" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.66 15L2 22l5.14-1.32A10 10 0 1 0 12 2zm5.6 14.3c-.24.66-1.38 1.26-1.9 1.33-.5.07-1.03.1-3.3-.7-2.78-1.02-4.57-3.86-4.7-4.04-.14-.18-1.12-1.5-1.12-2.85s.7-2.02.95-2.3c.24-.27.53-.34.7-.34h.5c.16 0 .38-.06.6.44.24.55.8 1.9.86 2.04.07.14.11.3.02.48-.09.18-.14.3-.28.45-.14.16-.29.36-.42.48-.14.13-.28.28-.12.55.16.27.7 1.16 1.52 1.88 1.05.94 1.93 1.23 2.2 1.37.27.14.43.12.6-.07.16-.2.68-.79.87-1.06.18-.27.36-.22.6-.13.24.09 1.55.73 1.82.86.27.14.44.2.5.32.07.11.07.66-.17 1.3z"/></svg>
+              <span><span class="lbl">WhatsApp</span><span class="val">4220-3700</span></span>
+            </a>
+
+            <a class="contact__row" href="tel:+50242203700">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8 9.9a16 16 0 0 0 6 6l1.4-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.8 2.1z"/></svg>
+              <span><span class="lbl">Teléfono</span><span class="val">4220-3700</span></span>
+            </a>
+
+            <a class="contact__row" href="mailto:g2creatividad@gmail.com">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>
+              <span><span class="lbl">Correo</span><span class="val">g2creatividad@gmail.com</span></span>
+            </a>
+
+            <a class="contact__row" href="https://www.facebook.com/g2creatividadguatemala/?locale=es_LA" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 22v-8.5H16l.5-3.5h-3V7.7c0-1 .3-1.7 1.7-1.7H16.6V2.8C16.3 2.8 15.3 2.7 14.2 2.7c-2.4 0-4 1.4-4 4v2.3H7.7v3.5h2.5V22h3.3z"/></svg>
+              <span><span class="lbl">Facebook</span><span class="val">G2 Creatividad Guatemala</span></span>
+            </a>
+
+            <a class="contact__row" href="https://maps.app.goo.gl/HrFF8FZF4wkBH9D57" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span><span class="lbl">Dirección</span><span class="val">28 calle 0-47 zona 12, La Reformita</span></span>
+            </a>
+
+            <a class="contact__row" href="https://waze.com/ul/h9fxe53hwe" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/><path d="M8 15c1 1 2.2 1.5 4 1.5s3-.5 4-1.5"/></svg>
+              <span><span class="lbl">Waze</span><span class="val">Cómo llegar</span></span>
+            </a>
+
+          </div>
+        </div>
+
+        <div class="map-frame reveal">
+          <iframe src={mapSrc} loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación de G2 Creatividad"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .contact{ position:relative; z-index:1; }
+  .contact__grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items:start; }
+  .contact__list{ display:grid; gap:1rem; margin-top:2rem; }
+  .contact__row{ display:flex; align-items:center; gap:1rem; padding: 1.1rem 1.2rem; background: var(--bg-raised); border:1px solid var(--border); border-radius: var(--radius-sm); transition: border-color .25s, transform .25s var(--ease); }
+  .contact__row:hover{ border-color: var(--accent); transform: translateX(4px); }
+  .contact__row svg{ flex:none; width:22px; height:22px; color:var(--accent); }
+  .contact__row .lbl{ font-size:.8rem; color:var(--text-muted); display:block; }
+  .contact__row .val{ font-weight:600; font-size:.98rem; }
+  .map-frame{ border:1px solid var(--border); border-radius: var(--radius-sm); overflow:hidden; aspect-ratio: 4/3.4; filter: grayscale(.15); }
+  .map-frame iframe{ width:100%; height:100%; border:0; }
+  html[data-theme="dark"] .map-frame{ filter: grayscale(.4) invert(.92) contrast(.9); }
+  @media (max-width:900px){ .contact__grid{ grid-template-columns:1fr; } }
+</style>

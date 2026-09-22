@@ -1,0 +1,139 @@
+---
+interface Props { current?: string; }
+const { current = '' } = Astro.props;
+const showPortfolio = false;
+const links = [
+  { href: '/', label: 'Inicio', key: 'inicio' },
+  { href: '/catalogo', label: 'Catálogo', key: 'catalogo' },
+  { href: '/portafolio', label: 'Portafolio', key: 'portafolio' },
+  { href: '/contacto', label: 'Contacto', key: 'contacto' },
+].filter(link => showPortfolio || link.key !== 'portafolio');
+const waLink = "https://wa.me/50242203700?text=Hola%2C%20quisiera%20cotizar%20un%20r%C3%B3tulo";
+---
+<header class="nav">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo" aria-label="G2 Creatividad — inicio">
+      <img class="logo-light" src="/logo-light.png" alt="G2 Creatividad">
+      <img class="logo-dark" src="/logo-dark.png" alt="G2 Creatividad">
+    </a>
+    <nav class="nav__links">
+      {links.map(l => (
+        <a href={l.href} class={current === l.key ? 'is-active' : ''}>{l.label}</a>
+      ))}
+    </nav>
+    <div class="nav__actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema claro / oscuro">
+        <span class="theme-toggle__knob">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </span>
+      </button>
+      <a href={waLink} class="btn btn-solid" style="padding:.6rem 1.1rem;font-size:.9rem;" target="_blank" rel="noopener">Cotizar</a>
+      <button class="nav__burger" id="burger" aria-label="Abrir menú" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+  <nav class="nav__mobile" id="navMobile">
+    {links.map(l => (
+      <a href={l.href} class={current === l.key ? 'is-active' : ''}>{l.label}</a>
+    ))}
+  </nav>
+</header>
+
+<style>
+  .nav{
+    position: fixed; top:0; left:0; right:0; z-index:100;
+    background: var(--nav-bg); backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    transition: background .35s var(--ease), border-color .35s var(--ease);
+  }
+  .nav__inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: .8rem var(--gutter); max-width: var(--container); margin:0 auto;
+  }
+  .nav__logo{ display:flex; align-items:center; height:42px; }
+  .nav__logo img{ height:100%; width:auto; }
+  .nav__logo .logo-dark{ display:none; }
+  html[data-theme="dark"] .nav__logo .logo-light{ display:none; }
+  html[data-theme="dark"] .nav__logo .logo-dark{ display:block; }
+
+  .nav__links{ display:flex; align-items:center; gap:2.1rem; }
+  .nav__links a{
+    font-size:.96rem; font-weight:500; color: var(--text-muted);
+    position:relative; padding: .3rem 0; transition: color .2s;
+  }
+  .nav__links a::after{
+    content:""; position:absolute; left:0; bottom:0; width:0; height:1.5px; background:var(--accent);
+    transition: width .25s var(--ease);
+  }
+  .nav__links a:hover, .nav__links a.is-active{ color: var(--text); }
+  .nav__links a:hover::after, .nav__links a.is-active::after{ width:100%; }
+
+  .nav__actions{ display:flex; align-items:center; gap:.9rem; }
+
+  .theme-toggle{
+    position:relative; width:52px; height:28px; border-radius:20px;
+    border:1px solid var(--border-strong); background: var(--surface-2);
+    display:flex; align-items:center; padding:2px;
+  }
+  .theme-toggle__knob{
+    width:20px; height:20px; border-radius:50%; background: var(--accent);
+    display:flex; align-items:center; justify-content:center;
+    transform: translateX(0); transition: transform .3s var(--ease);
+  }
+  html[data-theme="light"] .theme-toggle__knob{ transform: translateX(24px); }
+  .theme-toggle__knob svg{ width:12px; height:12px; }
+
+  .nav__burger{
+    display:none; width:38px; height:38px; border-radius:var(--radius-sm);
+    border:1px solid var(--border-strong); background:transparent;
+    align-items:center; justify-content:center;
+  }
+  .nav__burger span, .nav__burger span::before, .nav__burger span::after{
+    content:""; display:block; width:16px; height:1.5px; background:var(--text); position:relative;
+  }
+  html[data-theme="dark"] .nav__burger span,
+  html[data-theme="dark"] .nav__burger span::before,
+  html[data-theme="dark"] .nav__burger span::after{
+    background: var(--accent);
+  }
+  .nav__burger span::before{ position:absolute; top:-5px; }
+  .nav__burger span::after{ position:absolute; top:5px; }
+
+  .nav__mobile{
+    display:none; flex-direction:column; gap:.2rem;
+    background: var(--bg-raised); border-bottom:1px solid var(--border);
+    padding: .5rem var(--gutter) 1.2rem;
+  }
+  .nav__mobile a{ padding: .8rem 0; border-bottom:1px solid var(--border); color:var(--text); font-weight:500; }
+  .nav__mobile a.is-active{ color: var(--accent); }
+  .nav__mobile.is-open{ display:flex; }
+
+  @media (max-width: 900px){
+    .nav__links{ display:none; }
+    .nav__burger{ display:flex; }
+  }
+</style>
+
+<script>
+  const root = document.documentElement;
+  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+  if (!root.getAttribute('data-theme')) {
+    root.setAttribute('data-theme', prefersLight ? 'light' : 'dark');
+  }
+
+  const toggle = document.getElementById('themeToggle');
+  toggle?.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    window.dispatchEvent(new CustomEvent('g2:themechange', { detail: { theme: next } }));
+  });
+
+  const burger = document.getElementById('burger');
+  const navMobile = document.getElementById('navMobile');
+  burger?.addEventListener('click', () => {
+    const open = navMobile?.classList.toggle('is-open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  navMobile?.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navMobile.classList.remove('is-open'));
+  });
+</script>
