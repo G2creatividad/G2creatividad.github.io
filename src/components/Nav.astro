@@ -2,20 +2,20 @@
 interface Props { current?: string; }
 const { current = '' } = Astro.props;
 const showPortfolio = false;
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const site = import.meta.env.BASE_URL.replace(/\/$/, '');
 const links = [
-  { href: base || '/', label: 'Inicio', key: 'inicio' },
-  { href: `${base}/catalogo`, label: 'Catálogo', key: 'catalogo' },
-  { href: `${base}/portafolio`, label: 'Portafolio', key: 'portafolio' },
-  { href: `${base}/contacto`, label: 'Contacto', key: 'contacto' },
+  { href: site || '/', label: 'Inicio', key: 'inicio' },
+  { href: `${site}/catalogo`, label: 'Catálogo', key: 'catalogo' },
+  { href: `${site}/portafolio`, label: 'Portafolio', key: 'portafolio' },
+  { href: `${site}/contacto`, label: 'Contacto', key: 'contacto' },
 ].filter(link => showPortfolio || link.key !== 'portafolio');
 const waLink = "https://wa.me/50242203700?text=Hola%2C%20quisiera%20cotizar%20un%20r%C3%B3tulo";
 ---
 <header class="nav">
   <div class="nav__inner">
-    <a href={base || '/'} class="nav__logo" aria-label="G2 Creatividad — inicio">
-      <img class="logo-light" src={`${base}/logo-light.png`} alt="G2 Creatividad">
-      <img class="logo-dark" src={`${base}/logo-dark.png`} alt="G2 Creatividad">
+    <a href={site || '/'} class="nav__logo" aria-label="G2 Creatividad — inicio">
+      <img class="logo-light" src={`${site}/logo-light.png`} alt="G2 Creatividad">
+      <img class="logo-dark" src={`${site}/logo-dark.png`} alt="G2 Creatividad">
     </a>
     <nav class="nav__links">
       {links.map(l => (

@@ -1,21 +1,21 @@
 ---
 const year = new Date().getFullYear();
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const site = import.meta.env.BASE_URL.replace(/\/$/, '');
 const showPortfolio = false;
 ---
 <footer class="footer">
   <div class="container">
     <div class="footer__top">
       <div class="footer__logo">
-        <img src={`${base}/logo-dark.png`} alt="G2 Creatividad">
+        <img src={`${site}/logo-dark.png`} alt="G2 Creatividad">
         <p>Rotulación, impresión y sandblast en Guatemala — 23 años de trayectoria.</p>
       </div>
       <div class="footer__cols">
         <div class="footer__col">
           <h4>Navegación</h4>
-          <a href={`${base}/catalogo`}>Catálogo</a>
-          {showPortfolio && <a href={`${base}/portafolio`}>Portafolio</a>}
-          <a href={`${base}/contacto`}>Contacto</a>
+          <a href={`${site}/catalogo`}>Catálogo</a>
+          {showPortfolio && <a href={`${site}/portafolio`}>Portafolio</a>}
+          <a href={`${site}/contacto`}>Contacto</a>
         </div>
         <div class="footer__col">
           <h4>Contacto</h4>
