@@ -13,9 +13,9 @@ const waLink = "https://wa.me/50242203700?text=Hola%2C%20quisiera%20cotizar%20un
 ---
 <header class="nav">
   <div class="nav__inner">
-    <a href="/" class="nav__logo" aria-label="G2 Creatividad — inicio">
-      <img class="logo-light" src="/logo-light.png" alt="G2 Creatividad">
-      <img class="logo-dark" src="/logo-dark.png" alt="G2 Creatividad">
+    <a href={base || '/'} class="nav__logo" aria-label="G2 Creatividad — inicio">
+      <img class="logo-light" src={`${base}/logo-light.png`} alt="G2 Creatividad">
+      <img class="logo-dark" src={`${base}/logo-dark.png`} alt="G2 Creatividad">
     </a>
     <nav class="nav__links">
       {links.map(l => (

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
 import acrilicoImg from '../materials/acrilico.png';
 import pvcImg from '../materials/pvc.png';
 import acmImg from '../materials/acm.jpeg';
@@ -65,7 +66,7 @@ import vinilImg from '../materials/vinil.jpeg';
     </div>
   </section>
 
-  <!-- ============ NOSOTROS (fusionado en Inicio) ============ -->
+  <!-- ============ NOSOTROS ============ -->
   <section class="about section-pad" id="nosotros">
     <div class="container about__grid">
       <div class="reveal">
@@ -129,7 +130,7 @@ import vinilImg from '../materials/vinil.jpeg';
         <h2 class="h-lg">Ocho especialidades, un solo taller.</h2>
         <p class="lede" style="margin-top:.8rem;">Desde una vitrina hasta la fachada completa de una planta industrial.</p>
       </div>
-      <a href="/catalogo" class="btn btn-solid reveal">Ver el catálogo completo</a>
+      <a href={`${base}/catalogo`} class="btn btn-solid reveal">Ver el catálogo completo</a>
     </div>
   </section>
 
