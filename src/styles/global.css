@@ -118,3 +118,4 @@ section{ position:relative; }
 
 .skip-link{ position:absolute; left:-999px; top:0; background:var(--accent); color:var(--accent-contrast); padding:.6rem 1rem; z-index:200; }
 .skip-link:focus{ left:1rem; top:1rem; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
