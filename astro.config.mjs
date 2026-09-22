@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://g2creatividad.com',
-  trailingSlash: 'never'
+  site: 'https://rguaynaa.github.io',
+  base: '/G2creatividad',
+  trailingSlash: 'ignore',
 });

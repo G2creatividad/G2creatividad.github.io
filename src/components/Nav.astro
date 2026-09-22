@@ -2,12 +2,13 @@
 interface Props { current?: string; }
 const { current = '' } = Astro.props;
 const showPortfolio = false;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const links = [
-  { href: '/', label: 'Inicio', key: 'inicio' },
-  { href: '/catalogo', label: 'Catálogo', key: 'catalogo' },
-  { href: '/portafolio', label: 'Portafolio', key: 'portafolio' },
-  { href: '/contacto', label: 'Contacto', key: 'contacto' },
-].filter(link => showPortfolio || link.key !== 'portafolio');
+  { href: base || '/', label: 'Inicio', key: 'inicio' },
+  { href: `${base}/catalogo`, label: 'Catálogo', key: 'catalogo' },
+  { href: `${base}/portafolio`, label: 'Portafolio', key: 'portafolio' },
+  { href: `${base}/contacto`, label: 'Contacto', key: 'contacto' },
+];
 const waLink = "https://wa.me/50242203700?text=Hola%2C%20quisiera%20cotizar%20un%20r%C3%B3tulo";
 ---
 <header class="nav">
