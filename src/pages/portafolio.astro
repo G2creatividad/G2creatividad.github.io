@@ -2,14 +2,15 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PortfolioCompany from '../components/PortfolioCompany.astro';
 import { companies } from '../data/portfolio.js';
+import { SHOW_PORTFOLIO } from '../data/site';
 ---
-<BaseLayout title="Portafolio — G2 Creatividad" current="portafolio">
+<BaseLayout title="Portafolio de trabajos | G2 Creatividad" current="portafolio" noindex={!SHOW_PORTFOLIO}>
 
   <section class="section-pad" style="padding-top: calc(88px + clamp(3rem,6vw,5rem));">
     <div class="container">
       <div class="section-head reveal">
         <div class="eyebrow">Portafolio</div>
-        <h2 class="h-lg">Trabajos por empresa.</h2>
+        <h1 class="h-lg">Trabajos por empresa.</h1>
         <p class="lede" style="margin-top:.8rem;">Un vistazo a proyectos reales, organizados por cliente. La empresa de abajo es un ejemplo de plantilla — así se verá cada cliente real una vez agregado.</p>
       </div>
 

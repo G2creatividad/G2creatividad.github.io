@@ -1,0 +1,35 @@
+---
+import { SERVICES } from '../../data/services';
+import { YEARS_OF_EXPERIENCE } from '../../data/site';
+
+interface Stat { value: number; suffix?: string; label: string }
+const stats: Stat[] = [
+  { value: YEARS_OF_EXPERIENCE, label: 'Años de trayectoria' },
+  { value: SERVICES.length, label: 'Líneas de producción' },
+  { value: 100, suffix: '%', label: 'Hecho en Guatemala' },
+];
+---
+<section class="stats" aria-label="G2 Creatividad en cifras">
+  <div class="container stats__row">
+    {stats.map((s) => (
+      <div class="stats__item">
+        <div class="stats__num" data-count={s.value} data-suffix={s.suffix ?? ''}>{s.value}{s.suffix ?? ''}</div>
+        <div class="stats__label">{s.label}</div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .stats{ position:relative; z-index:1; background: var(--bg); }
+  .stats__row{ display:grid; grid-template-columns: repeat(3,1fr); }
+  .stats__item{ padding: 3rem 1.5rem; text-align:center; position:relative; }
+  .stats__item + .stats__item::before{ content:""; position:absolute; left:0; top:20%; bottom:20%; width:1px; background: var(--border-strong); transform: skewX(-12deg); }
+  .stats__num{ font-family:var(--font-display); font-size:clamp(2.6rem,5vw,3.6rem); color:var(--accent-ink); font-weight:800; font-variant-numeric: tabular-nums; }
+  .stats__label{ color: var(--text-muted); font-size:.95rem; margin-top:.3rem; }
+  @media (max-width:700px){ .stats__row{ grid-template-columns:1fr; } .stats__item+.stats__item::before{ display:none; } .stats__item{ border-top:1px solid var(--border); } .stats__item:first-child{ border-top:none; } }
+</style>
+
+<script>
+  import '../../scripts/counters';
+</script>

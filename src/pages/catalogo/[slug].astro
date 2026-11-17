@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServiceHero from '../../components/service/ServiceHero.astro';
+import ServiceDetails from '../../components/service/ServiceDetails.astro';
+import ServiceFaq from '../../components/service/ServiceFaq.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import QuoteForm from '../../components/QuoteForm.astro';
+import BusinessHours from '../../components/BusinessHours.astro';
+import { SERVICES, getService, servicePath, type Service } from '../../data/services';
+import { breadcrumbSchema, serviceSchema } from '../../lib/schema';
+import '../../styles/catalog.css';
+
+export function getStaticPaths() {
+  return SERVICES.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+
+interface Props { service: Service }
+const { service } = Astro.props;
+const related = service.related.map(getService).filter((s): s is Service => s !== undefined);
+const jsonLd = [
+  serviceSchema(service),
+  breadcrumbSchema([
+    { name: 'Inicio', path: '/' },
+    { name: 'Catálogo', path: '/catalogo/' },
+    { name: service.title, path: servicePath(service.slug) },
+  ]),
+];
+---
+<BaseLayout title={service.seoTitle} description={service.seoDescription} current="catalogo" jsonLd={jsonLd}>
+  <ServiceHero service={service} />
+  <ServiceDetails service={service} />
+
+  <section class="quote section-pad" id="cotizar">
+    <div class="container quote__grid">
+      <div class="quote__intro reveal">
+        <div class="eyebrow">Cotizador</div>
+        <h2 class="h-lg">Cotiza {service.title.toLowerCase()} por WhatsApp.</h2>
+        <p class="lede">Llena lo que sepas; armamos el mensaje por ti y se abre WhatsApp listo para enviar. Lo demás lo resolvemos en la conversación.</p>
+        <div class="quote__hours"><BusinessHours /></div>
+      </div>
+      <div class="reveal"><QuoteForm defaultService={service.slug} /></div>
+    </div>
+  </section>
+
+  <ServiceFaq service={service} />
+
+  <section class="related section-pad">
+    <div class="container">
+      <h2 class="h-md reveal" style="margin-bottom:2rem;">Otros servicios que te pueden interesar</h2>
+      <div class="catalog__grid reveal" style="--cols:3;">
+        {related.map((s) => <ServiceCard service={s} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .quote{ position:relative; z-index:1; background:var(--bg-raised); border-block:1px solid var(--border); }
+  .quote__grid{ display:grid; grid-template-columns: minmax(0,1fr) minmax(0,1.3fr); gap: clamp(2rem,5vw,4.5rem); align-items:start; }
+  .quote__intro .lede{ margin-top:1rem; }
+  .quote__hours{ margin-top:2rem; }
+  .related{ position:relative; z-index:1; }
+  @media (max-width:960px){ .quote__grid{ grid-template-columns:1fr; } }
+</style>

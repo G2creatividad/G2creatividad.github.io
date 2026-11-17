@@ -1,0 +1,42 @@
+---
+import { SERVICES, servicePath } from '../../data/services';
+import { numberWord } from '../../lib/text';
+import { withBase } from '../../lib/url';
+---
+<section class="teaser section-pad">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Catálogo</div>
+      <h2 class="h-lg">{numberWord(SERVICES.length)} especialidades, un solo taller.</h2>
+      <p class="lede" style="margin-top:.8rem;">Desde una vitrina hasta la fachada completa de una planta industrial. Entra a cada servicio para ver usos, ventajas y preguntas frecuentes.</p>
+    </div>
+
+    <ul class="teaser__list reveal">
+      {SERVICES.map((s) => (
+        <li>
+          <a href={withBase(servicePath(s.slug))}>
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={s.icon} />
+            <span>{s.title}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="teaser__ctas reveal">
+      <a href={withBase('/catalogo/')} class="btn btn-solid">Ver el catálogo completo</a>
+      <a href={withBase('/cotizar/')} class="btn btn-outline">Cotizar mi proyecto</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .teaser{ position:relative; z-index:1; }
+  .teaser__list{ display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:0 3rem; margin-bottom:2.5rem; }
+  .teaser__list li{ border-top:1px solid var(--border); }
+  .teaser__list li:nth-last-child(-n+2){ border-bottom:1px solid var(--border); }
+  .teaser__list a{ display:flex; align-items:center; gap:1rem; min-height:64px; padding:.5rem 0; font-family:var(--font-display); font-weight:700; font-size:1.25rem; transition: color .2s var(--ease), padding-left var(--spring-dur) var(--spring); }
+  .teaser__list a:hover{ color:var(--accent-ink); padding-left:.5rem; }
+  .teaser__list svg{ width:32px; height:32px; flex:none; color:var(--accent-ink); }
+  .teaser__ctas{ display:flex; flex-wrap:wrap; gap:1rem; }
+  @media (max-width:700px){ .teaser__list{ grid-template-columns:1fr; } .teaser__list li:nth-last-child(2){ border-bottom:0; } }
+</style>

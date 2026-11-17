@@ -1,0 +1,34 @@
+---
+import { BUSINESS } from '../data/site';
+import { servicePath, whatsappLinkFor, type Service } from '../data/services';
+import { withBase } from '../lib/url';
+
+interface Props { service: Service; headingLevel?: 2 | 3 }
+const { service, headingLevel = 3 } = Astro.props;
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
+const detail = withBase(servicePath(service.slug));
+---
+<article class="spec-card reg-corners" data-tilt>
+  <svg class="spec-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={service.icon} />
+  <Heading><a href={detail}>{service.title}</a></Heading>
+  <p>{service.desc}</p>
+  <div class="spec-card__actions">
+    <a class="btn btn-ghost" href={detail}>Ver detalles</a>
+    <a class="btn btn-ghost" href={whatsappLinkFor(service, BUSINESS.whatsappNumber)} target="_blank" rel="noopener" aria-label={`Cotizar ${service.title} por WhatsApp`}>Cotizar por WhatsApp</a>
+  </div>
+</article>
+
+<style>
+  .spec-card{ background: var(--surface); padding: 2.1rem 1.7rem; display:flex; flex-direction:column; gap:1rem; transition: transform .1s linear, background .3s var(--ease); transform-style: preserve-3d; will-change: transform; }
+  .spec-card:hover{ background: var(--surface-2); }
+  .spec-icon{ width:46px; height:46px; color: var(--accent-ink); }
+  .spec-card :is(h2, h3){ font-size:1.3rem; font-weight:700; }
+  .spec-card :is(h2, h3) a:hover{ color: var(--accent-ink); }
+  .spec-card p{ color:var(--text-muted); font-size:.94rem; }
+  .spec-card__actions{ margin-top:auto; display:flex; flex-wrap:wrap; gap:0 1.25rem; }
+  .spec-card .btn-ghost{ font-size:.88rem; }
+</style>
+
+<script>
+  import '../scripts/card-tilt';
+</script>

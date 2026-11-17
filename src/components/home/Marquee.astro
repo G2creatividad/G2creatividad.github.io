@@ -1,0 +1,20 @@
+---
+const items = ['ACRÍLICO', 'PVC', 'ACM', 'LETRAS TIPO BLOCK', 'VINIL DE CORTE', 'IMPRESIÓN FULL COLOR', 'SEGURIDAD INDUSTRIAL', 'SANDBLAST'];
+---
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    {[0, 1].map(() => (
+      <span>{items.map((item) => <><span class="marquee__item">{item}</span><em>/</em></>)}</span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .marquee{ position:relative; z-index:1; border-top:1px solid var(--border); border-bottom:1px solid var(--border); background: var(--surface); overflow:hidden; white-space:nowrap; }
+  .marquee__track{ display:inline-flex; animation: scrollX 32s linear infinite; padding: 1.1rem 0; }
+  .marquee:hover .marquee__track{ animation-play-state: paused; }
+  .marquee__track > span{ font-family: var(--font-display); font-weight:700; font-size:1.05rem; letter-spacing:.5px; color: var(--text-muted); padding: 0 1.4rem; display:inline-flex; align-items:center; gap:1.4rem; }
+  .marquee__track em{ color:var(--accent-ink); font-style:normal; }
+  @keyframes scrollX{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+  @media (prefers-reduced-motion: reduce){ .marquee__track{ animation:none; } }
+</style>

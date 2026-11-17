@@ -1,0 +1,89 @@
+---
+import { SERVICES } from '../data/services';
+import { BUSINESS } from '../data/site';
+import '../styles/quote-form.css';
+
+interface Props {
+  /** Slug del servicio preseleccionado (opcional). */
+  defaultService?: string;
+  id?: string;
+}
+const { defaultService = '', id = 'qf' } = Astro.props;
+const fallbackLink = `https://wa.me/${BUSINESS.whatsappNumber}`;
+---
+<form class="qf reg-corners" id={id} novalidate data-quote-form>
+  <div class="qf__grid">
+    <div class="qf__field qf__field--wide">
+      <label for={`${id}-service`}>Servicio que quieres cotizar</label>
+      <select id={`${id}-service`} name="service" required aria-describedby={`${id}-service-err`}>
+        <option value="">Elige un servicio…</option>
+        {SERVICES.map((s) => <option value={s.slug} data-title={s.title} selected={s.slug === defaultService}>{s.title}</option>)}
+      </select>
+      <p class="qf__error" id={`${id}-service-err`} role="alert" hidden></p>
+    </div>
+
+    <div class="qf__field">
+      <label for={`${id}-name`}>Tu nombre</label>
+      <input id={`${id}-name`} name="name" type="text" autocomplete="name" required maxlength="60" aria-describedby={`${id}-name-err`} />
+      <p class="qf__error" id={`${id}-name-err`} role="alert" hidden></p>
+    </div>
+
+    <div class="qf__field">
+      <label for={`${id}-qty`}>Cantidad</label>
+      <input id={`${id}-qty`} name="quantity" type="number" inputmode="numeric" min="1" max="9999" step="1" value="1" required aria-describedby={`${id}-quantity-err`} />
+      <p class="qf__error" id={`${id}-quantity-err`} role="alert" hidden></p>
+    </div>
+
+    <fieldset class="qf__field qf__field--wide qf__size">
+      <legend>Medidas aproximadas <span class="qf__opt">(opcional)</span></legend>
+      <div class="qf__size-row">
+        <input name="width" type="text" inputmode="decimal" placeholder="Ancho" aria-label="Ancho" maxlength="8" aria-describedby={`${id}-size-err`} />
+        <span aria-hidden="true">×</span>
+        <input name="height" type="text" inputmode="decimal" placeholder="Alto" aria-label="Alto" maxlength="8" aria-describedby={`${id}-size-err`} />
+        <select name="unit" aria-label="Unidad de medida">
+          <option value="cm">cm</option><option value="m">m</option><option value="pulg">pulgadas</option>
+        </select>
+      </div>
+      <p class="qf__error" id={`${id}-size-err`} role="alert" hidden></p>
+    </fieldset>
+
+    <div class="qf__field">
+      <label for={`${id}-place`}>¿Dónde se usará?</label>
+      <select id={`${id}-place`} name="placement">
+        <option value="interior">Interior</option><option value="exterior">Exterior</option><option value="no-se">Aún no lo sé</option>
+      </select>
+    </div>
+
+    <fieldset class="qf__field">
+      <legend>¿Ya tienes el diseño?</legend>
+      <div class="qf__choices">
+        <label><input type="radio" name="design" value="si" checked /> Sí, ya lo tengo</label>
+        <label><input type="radio" name="design" value="no" /> Necesito ayuda</label>
+      </div>
+    </fieldset>
+
+    <label class="qf__check qf__field--wide"><input type="checkbox" name="install" /> Necesito instalación en sitio</label>
+
+    <div class="qf__field qf__field--wide">
+      <label for={`${id}-notes`}>Detalles adicionales <span class="qf__opt">(opcional)</span></label>
+      <textarea id={`${id}-notes`} name="notes" rows="3" maxlength="400" placeholder="Colores, texto, ubicación, fecha que necesitas…"></textarea>
+    </div>
+  </div>
+
+  <div class="qf__preview" aria-live="polite">
+    <p class="qf__preview-title">Así se verá tu mensaje en WhatsApp</p>
+    <pre class="mono" data-preview>Completa el formulario y aquí verás el mensaje que enviaremos.</pre>
+  </div>
+
+  <div class="qf__actions">
+    <button type="submit" class="btn btn-solid" data-submit>Enviar por WhatsApp</button>
+    <button type="button" class="btn btn-outline" data-copy>Copiar mensaje</button>
+  </div>
+  <p class="qf__status" role="status" aria-live="polite" data-status></p>
+  <p class="qf__fallback" data-fallback hidden>¿No se abrió WhatsApp? <a href={fallbackLink} target="_blank" rel="noopener" data-fallback-link>Ábrelo aquí</a>.</p>
+  <noscript><p class="qf__fallback">Activa JavaScript para usar el cotizador, o <a href={fallbackLink}>escríbenos directo por WhatsApp</a>.</p></noscript>
+</form>
+
+<script>
+  import '../scripts/quote-form';
+</script>

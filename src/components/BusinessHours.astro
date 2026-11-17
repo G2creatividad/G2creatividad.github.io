@@ -1,0 +1,69 @@
+---
+import { BUSINESS, HOURS_CONFIRMED } from '../data/site';
+import { formatTime, weekRows } from '../lib/hours';
+
+const rows = weekRows();
+---
+<section class="hours reg-corners" aria-labelledby="hours-title" data-hours>
+  <div class="hours__head">
+    <h2 id="hours-title" class="h-md">Horario de atención</h2>
+    <p class="badge" data-hours-status role="status" aria-live="polite" hidden></p>
+  </div>
+
+  <table class="hours__table">
+    <caption class="visually-hidden">Horario de atención por día de la semana</caption>
+    <tbody>
+      {rows.map((r) => (
+        <tr data-day={r.day}>
+          <th scope="row">{r.label}</th>
+          <td class="mono">{r.range ? `${formatTime(r.range.opens)} – ${formatTime(r.range.closes)}` : 'Cerrado'}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <p class="hours__note">
+    {HOURS_CONFIRMED ? 'Feriados y horarios especiales pueden variar.' : 'Horario referencial: confirma antes de visitarnos.'}
+    <a href={BUSINESS.googleMaps} target="_blank" rel="noopener">Ver horario actualizado en Google Maps</a>
+    o escríbenos por WhatsApp antes de visitarnos.
+  </p>
+</section>
+
+<style>
+  .hours{ background: var(--bg-raised); border:1px solid var(--border); padding:1.5rem; }
+  .hours__head{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:.75rem; margin-bottom:1rem; }
+  .hours__table{ width:100%; border-collapse:collapse; }
+  .hours__table tr{ border-top:1px solid var(--border); }
+  .hours__table th, .hours__table td{ padding:.6rem 0; text-align:left; font-weight:500; font-size:.95rem; }
+  .hours__table td{ text-align:right; color:var(--text-muted); }
+  .hours__table tr.is-today th, .hours__table tr.is-today td{ color:var(--text); font-weight:700; }
+  .hours__table tr.is-today{ background: color-mix(in srgb, var(--accent) 10%, transparent); }
+  .hours__note{ margin-top:1rem; font-size:.85rem; color:var(--text-muted); }
+  .hours__note a{ color:var(--accent-ink); text-decoration:underline; text-underline-offset:3px; }
+</style>
+
+<script>
+  import { openStatus, statusLabel, zonedNow } from '../lib/hours';
+
+  function refresh(): void {
+    const now = new Date();
+    const status = openStatus(now);
+    const today = zonedNow(now).day;
+    document.querySelectorAll<HTMLElement>('[data-hours]').forEach((root) => {
+      const badge = root.querySelector<HTMLElement>('[data-hours-status]');
+      if (badge) {
+        badge.hidden = false;
+        badge.textContent = statusLabel(status);
+        badge.dataset.state = status.open ? 'open' : 'closed';
+      }
+      root.querySelectorAll<HTMLElement>('tr[data-day]').forEach((tr) => {
+        const isToday = Number(tr.dataset.day) === today;
+        tr.classList.toggle('is-today', isToday);
+        if (isToday) tr.setAttribute('aria-current', 'date'); else tr.removeAttribute('aria-current');
+      });
+    });
+  }
+
+  refresh();
+  window.setInterval(refresh, 60_000);
+</script>

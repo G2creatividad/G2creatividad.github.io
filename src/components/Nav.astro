@@ -1,44 +1,44 @@
 ---
-interface Props { current?: string; }
+import { SHOW_PORTFOLIO } from '../data/site';
+import { withBase } from '../lib/url';
+
+interface Props { current?: string }
 const { current = '' } = Astro.props;
-const showPortfolio = false;
-const site = import.meta.env.BASE_URL.replace(/\/$/, '');
 const links = [
-  { href: site || '/', label: 'Inicio', key: 'inicio' },
-  { href: `${site}/catalogo`, label: 'Catálogo', key: 'catalogo' },
-  { href: `${site}/portafolio`, label: 'Portafolio', key: 'portafolio' },
-  { href: `${site}/contacto`, label: 'Contacto', key: 'contacto' },
-].filter(link => showPortfolio || link.key !== 'portafolio');
-const waLink = "https://wa.me/50242203700?text=Hola%2C%20quisiera%20cotizar%20un%20r%C3%B3tulo";
+  { href: withBase('/'), label: 'Inicio', key: 'inicio' },
+  { href: withBase('/catalogo/'), label: 'Catálogo', key: 'catalogo' },
+  { href: withBase('/portafolio/'), label: 'Portafolio', key: 'portafolio' },
+  { href: withBase('/contacto/'), label: 'Contacto', key: 'contacto' },
+].filter((l) => SHOW_PORTFOLIO || l.key !== 'portafolio');
+const quoteHref = withBase('/cotizar/');
 ---
 <header class="nav">
   <div class="nav__inner">
-    <a href={site || '/'} class="nav__logo" aria-label="G2 Creatividad — inicio">
-      <img class="logo-light" src={`${site}/logo-light.png`} alt="G2 Creatividad">
-      <img class="logo-dark" src={`${site}/logo-dark.png`} alt="G2 Creatividad">
+    <a href={withBase('/')} class="nav__logo" aria-label="G2 Creatividad — inicio">
+      <img class="logo-light" src={withBase('/logo-light.png')} alt="G2 Creatividad" width="42" height="42" />
+      <img class="logo-dark" src={withBase('/logo-dark.png')} alt="" width="42" height="42" />
     </a>
-    <nav class="nav__links">
-      {links.map(l => (
-        <a href={l.href} class={current === l.key ? 'is-active' : ''}>{l.label}</a>
+    <nav class="nav__links" aria-label="Principal">
+      {links.map((l) => (
+        <a href={l.href} class={current === l.key ? 'is-active' : ''} aria-current={current === l.key ? 'page' : undefined}>{l.label}</a>
       ))}
     </nav>
     <div class="nav__actions">
-      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema claro / oscuro">
+      <button class="theme-toggle" id="themeToggle" type="button" role="switch" aria-checked="true" aria-label="Modo oscuro">
         <span class="theme-toggle__knob">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
         </span>
       </button>
-      <a href={waLink} class="btn btn-solid" style="padding:.6rem 1.1rem;font-size:.9rem;" target="_blank" rel="noopener">Cotizar</a>
-      <button class="nav__burger" id="burger" aria-label="Abrir menú" aria-expanded="false"><span></span></button>
+      <a href={quoteHref} class="btn btn-solid btn--sm">Cotizar</a>
+      <button class="nav__burger" id="burger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="navMobile"><span></span></button>
     </div>
   </div>
-  <nav class="nav__mobile" id="navMobile">
-    {links.map(l => (
-      <a href={l.href} class={current === l.key ? 'is-active' : ''}>{l.label}</a>
+  <nav class="nav__mobile" id="navMobile" aria-label="Principal (móvil)">
+    {links.map((l) => (
+      <a href={l.href} class={current === l.key ? 'is-active' : ''} aria-current={current === l.key ? 'page' : undefined}>{l.label}</a>
     ))}
   </nav>
 </header>
-
 <style>
   .nav{
     position: fixed; top:0; left:0; right:0; z-index:100;
@@ -59,7 +59,7 @@ const waLink = "https://wa.me/50242203700?text=Hola%2C%20quisiera%20cotizar%20un
   .nav__links{ display:flex; align-items:center; gap:2.1rem; }
   .nav__links a{
     font-size:.96rem; font-weight:500; color: var(--text-muted);
-    position:relative; padding: .3rem 0; transition: color .2s;
+    position:relative; padding: .6rem 0; transition: color .2s;
   }
   .nav__links a::after{
     content:""; position:absolute; left:0; bottom:0; width:0; height:1.5px; background:var(--accent);
@@ -69,22 +69,26 @@ const waLink = "https://wa.me/50242203700?text=Hola%2C%20quisiera%20cotizar%20un
   .nav__links a:hover::after, .nav__links a.is-active::after{ width:100%; }
 
   .nav__actions{ display:flex; align-items:center; gap:.9rem; }
+  .btn--sm{ padding:.6rem 1.1rem; font-size:.9rem; }
 
   .theme-toggle{
     position:relative; width:52px; height:28px; border-radius:20px;
     border:1px solid var(--border-strong); background: var(--surface-2);
     display:flex; align-items:center; padding:2px;
   }
+  /* Área táctil de 44 px sin cambiar el tamaño visual del interruptor */
+  .theme-toggle::after{ content:""; position:absolute; inset:-8px -4px; }
+  .theme-toggle:active .theme-toggle__knob{ scale:.9; }
   .theme-toggle__knob{
     width:20px; height:20px; border-radius:50%; background: var(--accent);
     display:flex; align-items:center; justify-content:center;
-    transform: translateX(0); transition: transform .3s var(--ease);
+    transform: translateX(0); transition: transform var(--spring-dur) var(--spring), scale .15s var(--ease);
   }
   html[data-theme="light"] .theme-toggle__knob{ transform: translateX(24px); }
   .theme-toggle__knob svg{ width:12px; height:12px; }
 
   .nav__burger{
-    display:none; width:38px; height:38px; border-radius:var(--radius-sm);
+    display:none; width:44px; height:44px; border-radius:var(--radius-sm);
     border:1px solid var(--border-strong); background:transparent;
     align-items:center; justify-content:center;
   }
@@ -105,7 +109,8 @@ const waLink = "https://wa.me/50242203700?text=Hola%2C%20quisiera%20cotizar%20un
     padding: .5rem var(--gutter) 1.2rem;
   }
   .nav__mobile a{ padding: .8rem 0; border-bottom:1px solid var(--border); color:var(--text); font-weight:500; }
-  .nav__mobile a.is-active{ color: var(--accent); }
+  .nav__mobile a{ min-height:44px; display:flex; align-items:center; }
+  .nav__mobile a.is-active{ color: var(--accent-ink); }
   .nav__mobile.is-open{ display:flex; }
 
   @media (max-width: 900px){
@@ -116,25 +121,29 @@ const waLink = "https://wa.me/50242203700?text=Hola%2C%20quisiera%20cotizar%20un
 
 <script>
   const root = document.documentElement;
-  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-  if (!root.getAttribute('data-theme')) {
-    root.setAttribute('data-theme', prefersLight ? 'light' : 'dark');
-  }
-
   const toggle = document.getElementById('themeToggle');
+  const burger = document.getElementById('burger');
+  const navMobile = document.getElementById('navMobile');
+
+  const syncSwitch = (): void => {
+    toggle?.setAttribute('aria-checked', root.getAttribute('data-theme') === 'dark' ? 'true' : 'false');
+  };
+  syncSwitch();
+
   toggle?.addEventListener('click', () => {
     const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     root.setAttribute('data-theme', next);
+    syncSwitch();
     window.dispatchEvent(new CustomEvent('g2:themechange', { detail: { theme: next } }));
   });
 
-  const burger = document.getElementById('burger');
-  const navMobile = document.getElementById('navMobile');
-  burger?.addEventListener('click', () => {
-    const open = navMobile?.classList.toggle('is-open');
-    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-  navMobile?.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => navMobile.classList.remove('is-open'));
+  const setMenu = (open: boolean): void => {
+    navMobile?.classList.toggle('is-open', open);
+    burger?.setAttribute('aria-expanded', String(open));
+  };
+  burger?.addEventListener('click', () => setMenu(!navMobile?.classList.contains('is-open')));
+  navMobile?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navMobile?.classList.contains('is-open')) { setMenu(false); burger?.focus(); }
   });
 </script>

@@ -2,47 +2,57 @@
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import CursorGridBackground from '../components/CursorGridBackground.astro';
+import SeoHead from '../components/SeoHead.astro';
+import { YEARS_OF_EXPERIENCE } from '../data/site';
+import type { JsonLd } from '../lib/schema';
+import interUrl from '../assets/fonts/inter-latin-wght-normal.woff2?url';
+import barlow800Url from '../assets/fonts/barlow-condensed-latin-800-normal.woff2?url';
+import barlow900Url from '../assets/fonts/barlow-condensed-latin-900-normal.woff2?url';
+import '../styles/fonts.css';
 import '../styles/global.css';
 
 interface Props {
   title: string;
   description?: string;
   current?: string;
+  noindex?: boolean;
+  jsonLd?: readonly JsonLd[];
 }
 const {
   title,
-  description = 'G2 Creatividad: 23 años de trayectoria en rótulos de acrílico, PVC, ACM, letras tipo block, vinil de corte y sandblast en Guatemala.',
-  current = ''
+  description = `G2 Creatividad: ${YEARS_OF_EXPERIENCE} años de trayectoria en rótulos de acrílico, PVC, ACM, letras tipo block, vinil de corte, impresión y sandblast en Guatemala.`,
+  current = '',
+  noindex = false,
+  jsonLd = [],
 } = Astro.props;
 ---
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-GT">
 <head>
-  <meta property="og:site_name" content="G2 Creatividad" />
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "G2 Creatividad",
-  "alternateName": ["g2creatividad", "G2 Creatividad Guatemala"],
-  "url": "https://g2creatividad.github.io/"
-}
-  </script>
-  <link rel="icon" type="image/png" href="/logo-dark.png" />
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title}</title>
-  <meta name="description" content={description}>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0D0D0D" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#F1F2EF" media="(prefers-color-scheme: light)" />
+  <SeoHead title={title} description={description} noindex={noindex} jsonLd={jsonLd} />
+
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" type="image/png" href="/icon-192.png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <link rel="preload" as="font" type="font/woff2" href={interUrl} crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href={barlow800Url} crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href={barlow900Url} crossorigin />
+
   <script is:inline>
-    // Set theme before first paint to avoid a flash of the wrong theme.
-    (function(){
+    // Se ejecuta antes del primer pintado: evita el parpadeo de tema y marca que hay JS.
+    (function () {
+      var root = document.documentElement;
+      root.classList.add('js');
       var stored = null;
-      try { stored = sessionStorage.getItem('g2-theme'); } catch(e){}
-      var theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-      document.documentElement.setAttribute('data-theme', theme);
+      try { stored = localStorage.getItem('g2-theme'); } catch (e) {}
+      var prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      root.setAttribute('data-theme', stored === 'light' || stored === 'dark' ? stored : (prefersLight ? 'light' : 'dark'));
     })();
   </script>
 </head>
@@ -56,17 +66,16 @@ const {
   <Footer />
 
   <script is:inline>
-    // Persist theme choice for the current tab session (no cross-session
-    // storage, kept intentionally lightweight).
-    window.addEventListener('g2:themechange', function(e){
-      try { sessionStorage.setItem('g2-theme', e.detail.theme); } catch(err){}
+    // Recuerda la elección de tema entre visitas.
+    window.addEventListener('g2:themechange', function (e) {
+      try { localStorage.setItem('g2-theme', e.detail.theme); } catch (err) {}
     });
   </script>
 
   <script>
-    // Shared scroll-reveal, used sparingly across pages.
+    // Aparición suave al hacer scroll (se usa con moderación).
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const revealEls = document.querySelectorAll('.reveal');
+    const revealEls = document.querySelectorAll<HTMLElement>('.reveal');
     if ('IntersectionObserver' in window && !reduceMotion) {
       const io = new IntersectionObserver((entries) => {
         entries.forEach((en) => {

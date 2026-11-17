@@ -1,32 +1,43 @@
 ---
-// Fixed full-viewport canvas background. Sits behind all page content
-// (z-index: 0) and lights up a grid near the cursor — brand-colored,
-// subtle, and skipped entirely for prefers-reduced-motion.
+// Lienzo fijo detrás de todo el contenido. La retícula tenue la dibuja el CSS
+// (no cuesta nada); el JS solo ilumina las celdas cercanas al cursor y se detiene
+// por completo cuando no hay nada animándose. No se carga con "reducir movimiento".
 ---
-<canvas id="cursor-grid-bg" aria-hidden="true"></canvas>
+<div class="cursor-grid" aria-hidden="true">
+  <canvas id="cursor-grid-bg"></canvas>
+</div>
 
 <style>
-  #cursor-grid-bg{
+  .cursor-grid {
     position: fixed;
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    display: block;
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, var(--accent) 7%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--accent) 7%, transparent) 1px, transparent 1px);
+    background-size: 44px 44px;
+    background-position: 0 0;
   }
+  html[data-theme='light'] .cursor-grid {
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.045) 1px, transparent 1px);
+  }
+  #cursor-grid-bg { display: block; }
 </style>
 
 <script>
-  import { mountCursorGrid } from '../scripts/cursor-grid.js';
+  import { mountCursorGrid, type CursorGridHandle } from '../scripts/cursor-grid';
 
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const canvas = document.getElementById('cursor-grid-bg');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function currentAccent() {
-    return getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#FFCC00';
-  }
+  const accent = (): string =>
+    getComputedStyle(document.documentElement).getPropertyValue('--accent-ink').trim() || '#FFB020';
 
-  if (canvas && !reduceMotion) {
-    const instance = mountCursorGrid(canvas, { color: currentAccent() });
-    window.addEventListener('g2:themechange', () => instance.setColor(currentAccent()));
+  if (canvas instanceof HTMLCanvasElement && !reduceMotion) {
+    const grid: CursorGridHandle | null = mountCursorGrid(canvas, { color: accent() });
+    window.addEventListener('g2:themechange', () => grid?.setColor(accent()));
   }
 </script>

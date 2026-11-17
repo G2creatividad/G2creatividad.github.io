@@ -1,0 +1,43 @@
+---
+import { FOUNDED_YEAR, YEARS_OF_EXPERIENCE } from '../../data/site';
+
+const capabilities = [
+  'Diseño y asesoría de materiales según el proyecto',
+  'Corte de precisión en vinil y materiales rígidos',
+  'Impresión de gran formato full color',
+  'Instalación en sitio',
+];
+---
+<section class="about section-pad" id="nosotros">
+  <div class="container about__grid">
+    <div class="reveal">
+      <div class="eyebrow">Nosotros</div>
+      <h2 class="h-lg">{YEARS_OF_EXPERIENCE} años dando forma a ideas.</h2>
+      <p class="lede" style="margin-top:1rem;max-width:52ch;">Desde {FOUNDED_YEAR}, G2 Creatividad diseña, corta e imprime rotulación para negocios, industrias e instituciones en Guatemala. Combinamos corte de precisión e impresión de gran formato con acabados hechos a mano, para que cada rótulo salga como se planeó: a la medida y a tiempo.</p>
+      <ul class="about__capabilities">
+        {capabilities.map((c) => (
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> {c}</li>
+        ))}
+      </ul>
+    </div>
+    <div class="about__figure reveal" aria-hidden="true">
+      <svg viewBox="0 0 200 200" fill="none" stroke="rgba(255,176,32,0.5)" stroke-width="1.2">
+        <circle cx="100" cy="100" r="70"/>
+        <line x1="100" y1="10" x2="100" y2="190"/><line x1="10" y1="100" x2="190" y2="100"/>
+        <line x1="30" y1="100" x2="30" y2="90"/><line x1="170" y1="100" x2="170" y2="90"/>
+        <line x1="100" y1="30" x2="90" y2="30"/><line x1="100" y1="170" x2="90" y2="170"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about{ position:relative; z-index:1; background: var(--bg); }
+  .about__grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items:center; }
+  .about__figure{ position:relative; aspect-ratio: 4/5; background: var(--panel); clip-path: polygon(0 0, 100% 8%, 100% 100%, 0 92%); display:flex; align-items:center; justify-content:center; }
+  .about__figure svg{ width:70%; height:70%; }
+  .about__capabilities{ margin-top:1.8rem; display:grid; gap: .9rem; }
+  .about__capabilities li{ display:flex; gap:.8rem; align-items:flex-start; color:var(--text-muted); font-size:.96rem; }
+  .about__capabilities svg{ flex:none; width:18px; height:18px; margin-top:.15rem; color:var(--accent-ink); }
+  @media (max-width:900px){ .about__grid{ grid-template-columns:1fr; gap:2.5rem; } .about__figure{ order:-1; max-width:340px; margin:0 auto; } }
+</style>

@@ -1,0 +1,40 @@
+---
+import acrilicoImg from '../../materials/acrilico.png';
+import pvcImg from '../../materials/pvc.png';
+import acmImg from '../../materials/acm.jpeg';
+import vinilImg from '../../materials/vinil.jpeg';
+
+const materials = [
+  { name: 'Acrílico', src: acrilicoImg.src, key: 'acrilico' },
+  { name: 'PVC', src: pvcImg.src, key: 'pvc' },
+  { name: 'ACM', src: acmImg.src, key: 'acm' },
+  { name: 'Vinil', src: vinilImg.src, key: 'vinil' },
+];
+---
+<section class="materials section-pad">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Materiales</div>
+      <h2 class="h-md">Cada superficie pide un material distinto.</h2>
+    </div>
+    <div class="materials__grid reveal">
+      {materials.map((m) => (
+        <div class={`swatch swatch--${m.key}`}>
+          <img src={m.src} alt={`Muestra de ${m.name}`} loading="lazy" decoding="async" />
+          <span>{m.name}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .materials{ position:relative; z-index:1; background: var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .materials__grid{ display:grid; grid-template-columns: repeat(4,1fr); gap: 1.4rem; }
+  .swatch{ border:1px solid var(--border); border-radius: var(--radius-sm); padding: 1.4rem; height:150px; position:relative; overflow:hidden; display:flex; align-items:flex-end; }
+  .swatch img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+  .swatch span{ font-family:var(--font-display); font-weight:700; font-size:1.15rem; color:#fff; position:relative; z-index:2; text-shadow: 0 2px 10px rgba(0,0,0,.4); }
+  .swatch::before{ content:""; position:absolute; inset:0; z-index:1; background: linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.45)); }
+  @media (max-width:900px){ .materials__grid{ grid-template-columns: repeat(2,1fr);} }
+  @media (max-width:520px){ .materials__grid{ grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,18 @@
+# Dependabot abre una solicitud (PR) cuando hay versiones nuevas de las dependencias,
+# para que el sitio no se quede con paquetes desactualizados o con fallos de seguridad.
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 3
+    groups:
+      astro:
+        patterns: ["astro", "@astrojs/*"]
+      tooling:
+        patterns: ["typescript"]
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"

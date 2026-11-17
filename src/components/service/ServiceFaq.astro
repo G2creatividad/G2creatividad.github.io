@@ -1,0 +1,33 @@
+---
+import type { Service } from '../../data/services';
+
+interface Props { service: Service }
+const { service } = Astro.props;
+---
+<section class="faq section-pad" aria-labelledby="faq-title">
+  <div class="container faq__wrap">
+    <h2 id="faq-title" class="h-lg reveal">Preguntas frecuentes</h2>
+    <div class="faq__list reveal">
+      {service.faqs.map((f) => (
+        <details>
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq{ position:relative; z-index:1; }
+  .faq__wrap{ display:grid; grid-template-columns: 1fr 1.6fr; gap: clamp(2rem,5vw,5rem); align-items:start; }
+  .faq__list{ border-bottom:1px solid var(--border); }
+  details{ border-top:1px solid var(--border); }
+  summary{ display:flex; align-items:center; justify-content:space-between; gap:1rem; min-height:64px; padding:.75rem 0; font-weight:600; cursor:pointer; list-style:none; }
+  summary::-webkit-details-marker{ display:none; }
+  summary::after{ content:"+"; font-family:var(--font-mono); font-size:1.25rem; color:var(--accent-ink); transition: transform var(--spring-dur) var(--spring); }
+  details[open] summary::after{ transform: rotate(45deg); }
+  summary:hover{ color:var(--accent-ink); }
+  details p{ padding:0 0 1.25rem; color:var(--text-muted); max-width:60ch; }
+  @media (max-width:900px){ .faq__wrap{ grid-template-columns:1fr; } }
+</style>

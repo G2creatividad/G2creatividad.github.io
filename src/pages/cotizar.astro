@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import BusinessHours from '../components/BusinessHours.astro';
+import { BUSINESS } from '../data/site';
+import { breadcrumbSchema } from '../lib/schema';
+
+const steps = [
+  { title: 'Llena lo que sepas', text: 'Servicio, medidas aproximadas y cantidad. Si algo no lo sabes, déjalo en blanco.' },
+  { title: 'Revisa el mensaje', text: 'Ves en pantalla exactamente lo que enviaremos, antes de enviarlo.' },
+  { title: 'Se abre WhatsApp', text: 'Llegas al chat con el mensaje listo; solo lo envías y te respondemos.' },
+];
+const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }, { name: 'Cotizar', path: '/cotizar/' }])];
+---
+<BaseLayout
+  title="Cotizar un rótulo por WhatsApp | G2 Creatividad"
+  description="Cotiza tu rótulo, vinil, impresión o sandblast en minutos: llena el cotizador y envía el mensaje listo por WhatsApp a G2 Creatividad, Guatemala."
+  current="cotizar"
+  jsonLd={jsonLd}
+>
+  <section class="cot section-pad" style="padding-top: calc(88px + clamp(3rem,6vw,5rem));">
+    <div class="container cot__grid">
+      <div class="reveal">
+        <div class="eyebrow">Cotizador</div>
+        <h1 class="h-lg">Cuéntanos tu proyecto y te cotizamos.</h1>
+        <p class="lede" style="margin-top:1rem;">Un mensaje con los datos correctos nos ahorra idas y vueltas, y te da un precio más rápido.</p>
+        <ol class="cot__steps">
+          {steps.map((s) => (<li><strong>{s.title}</strong><span>{s.text}</span></li>))}
+        </ol>
+        <p class="cot__direct">¿Prefieres escribir directo? <a href={`https://wa.me/${BUSINESS.whatsappNumber}`} target="_blank" rel="noopener">Abrir WhatsApp</a> o llama al <a href={`tel:${BUSINESS.phoneE164}`}>{BUSINESS.phoneDisplay}</a>.</p>
+        <div class="cot__hours"><BusinessHours /></div>
+      </div>
+      <div class="reveal"><QuoteForm id="qf" /></div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .cot{ position:relative; z-index:1; }
+  .cot__grid{ display:grid; grid-template-columns: minmax(0,1fr) minmax(0,1.3fr); gap: clamp(2rem,5vw,4.5rem); align-items:start; }
+  .cot__steps{ margin:2rem 0 0; padding:0; list-style:none; counter-reset: step; }
+  .cot__steps li{ counter-increment: step; display:grid; grid-template-columns: 2.5rem 1fr; column-gap:1rem; padding:1rem 0; border-top:1px solid var(--border); }
+  .cot__steps li::before{ content: counter(step); grid-row: span 2; font-family:var(--font-mono); color:var(--accent-ink); font-size:1.1rem; }
+  .cot__steps strong{ font-weight:600; }
+  .cot__steps span{ color:var(--text-muted); font-size:.95rem; }
+  .cot__direct{ margin-top:1.5rem; color:var(--text-muted); font-size:.95rem; }
+  .cot__direct a{ color:var(--accent-ink); text-decoration:underline; text-underline-offset:3px; }
+  .cot__hours{ margin-top:2rem; }
+  @media (max-width:960px){ .cot__grid{ grid-template-columns:1fr; } }
+</style>

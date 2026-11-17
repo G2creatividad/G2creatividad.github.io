@@ -1,0 +1,85 @@
+---
+import { BUSINESS, FOUNDED_YEAR, YEARS_OF_EXPERIENCE } from '../../data/site';
+import { withBase } from '../../lib/url';
+
+const whatsapp = `https://wa.me/${BUSINESS.whatsappNumber}?text=${encodeURIComponent('Hola, quisiera cotizar un rótulo')}`;
+---
+<section class="hero" id="inicio">
+  <div class="hero__panel" aria-hidden="true">
+    <svg viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice" focusable="false">
+      <text x="90" y="520" font-family="Barlow Condensed" font-weight="900" font-size="500" fill="none" stroke="rgba(255,176,32,0.16)" stroke-width="2">G2</text>
+      <text x="90" y="590" font-family="Barlow Condensed" font-weight="900" font-size="80" fill="none" stroke="rgba(255,176,32,0.16)" stroke-width="2" letter-spacing="8">CREATIVIDAD</text>
+      <g stroke="rgba(255,255,255,0.14)" stroke-width="1">
+        <line x1="60" y1="90" x2="60" y2="710"/><line x1="45" y1="90" x2="75" y2="90"/>
+        <line x1="45" y1="710" x2="75" y2="710"/><line x1="60" y1="90" x2="560" y2="60"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero__spotlight" id="heroSpot" aria-hidden="true"></div>
+  <div class="hero__inner">
+    <div class="hero__content">
+      <p class="hero__badge"><b>{YEARS_OF_EXPERIENCE}</b> años dando forma a marcas en Guatemala</p>
+      <h1 class="hero__title">
+        <span class="visually-hidden">G2 Creatividad | </span>
+        <span class="line"><span>Tu marca,</span></span>
+        <span class="line"><span>cortada con precisión.</span></span>
+      </h1>
+      <div class="hero__blade"></div>
+      <p class="lede hero__lede">Rótulos en acrílico, PVC y ACM, letras tipo block, vinil de corte, impresión full color, seguridad industrial y sandblast — diseñados, cortados e instalados por un mismo equipo desde {FOUNDED_YEAR}.</p>
+      <div class="hero__ctas">
+        <a href={whatsapp} class="btn btn-solid" target="_blank" rel="noopener">Cotiza por WhatsApp</a>
+        <a href={withBase('/catalogo/')} class="btn btn-outline">Ver catálogo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero{ position:relative; overflow:hidden; min-height: 100svh; display:flex; align-items:center; padding-top: 88px; background: var(--bg); }
+  .hero__panel{ position:absolute; top:0; right:0; bottom:0; width:52%; background: var(--panel); clip-path: polygon(22% 0, 100% 0, 100% 100%, 0% 100%); overflow:hidden; }
+  .hero__panel svg{ position:absolute; inset:0; width:100%; height:100%; }
+  .hero__spotlight{ position:absolute; inset:0; pointer-events:none; z-index:1; background: radial-gradient(420px circle at var(--x,50%) var(--y,50%), rgba(255,176,32,.12), transparent 60%); }
+  .hero__inner{ position:relative; z-index:2; max-width: var(--container); margin:0 auto; width:100%; padding: 0 var(--gutter); display:grid; grid-template-columns: minmax(0,640px) 1fr; gap:2rem; }
+  .hero__content{ padding: 3rem 0 4rem; }
+  .hero__badge{ display:inline-flex; align-items:center; gap:.6rem; border:1px solid var(--border-strong); border-radius:30px; padding:.4rem .9rem .4rem .4rem; margin-bottom:1.6rem; font-size:.85rem; font-weight:600; color:var(--text-muted); }
+  /* Chip con relleno de marca: texto oscuro sobre amarillo (12:1) en ambos temas */
+  .hero__badge b{ background:var(--accent); color:var(--accent-contrast); font-family:var(--font-display); font-size:1rem; padding:.05rem .55rem; border-radius:20px; }
+  .hero__title{ font-size: clamp(2.7rem, 6.4vw, 5rem); line-height:.96; overflow:hidden; }
+  .hero__title .line{ display:block; overflow:hidden; }
+  .hero__title .line span{ display:inline-block; transform: translateY(105%); animation: riseLine .85s var(--ease) forwards; }
+  .hero__title .line:nth-child(1) span{ animation-delay:.15s; }
+  .hero__title .line:nth-child(2) span{ animation-delay:.32s; color:var(--accent-ink); }
+  /* En modo claro el amarillo no se lee como texto (1.35:1): se usa como marcador detrás de texto oscuro */
+  html[data-theme="light"] .hero__title .line:nth-child(2) span{ color:var(--text); background: linear-gradient(transparent 62%, var(--accent) 62% 90%, transparent 90%); }
+  @keyframes riseLine{ to{ transform: translateY(0); } }
+  .hero__blade{ position:relative; height:4px; width:0; background:var(--accent); margin:1.6rem 0 1.7rem; animation: growBlade .9s var(--ease) forwards; animation-delay:.75s; }
+  @keyframes growBlade{ to{ width:120px; } }
+  .hero__lede{ opacity:0; animation: fadeUp .7s var(--ease) forwards; animation-delay:1s; }
+  .hero__ctas{ display:flex; flex-wrap:wrap; gap:1rem; margin-top:2.2rem; opacity:0; animation: fadeUp .7s var(--ease) forwards; animation-delay:1.15s; }
+  @keyframes fadeUp{ from{ opacity:0; transform:translateY(14px);} to{ opacity:1; transform:translateY(0);} }
+  @media (prefers-reduced-motion: reduce){
+    .hero__title .line span{ animation:none; transform:none; }
+    .hero__blade{ animation:none; width:120px; }
+    .hero__lede,.hero__ctas{ animation:none; opacity:1; }
+  }
+  @media (max-width: 900px){
+    .hero__inner{ grid-template-columns: 1fr; }
+    .hero__panel{ width:100%; height:32%; top:auto; bottom:0; clip-path: polygon(0 28%, 100% 0, 100% 100%, 0 100%); }
+    .hero{ min-height: auto; padding-bottom: 3rem;}
+    .hero__content{ padding-bottom: 1rem; }
+  }
+</style>
+
+<script>
+  const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hero = document.getElementById('inicio');
+  const spot = document.getElementById('heroSpot');
+  if (fine && !reduce && hero && spot) {
+    hero.addEventListener('mousemove', (e: MouseEvent) => {
+      const r = hero.getBoundingClientRect();
+      spot.style.setProperty('--x', `${e.clientX - r.left}px`);
+      spot.style.setProperty('--y', `${e.clientY - r.top}px`);
+    });
+  }
+</script>
